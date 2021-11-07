@@ -20,6 +20,10 @@ func init() {
 	mime.AddExtensionType(".py", "text/plain")
 	mime.AddExtensionType(".c", "text/plain")
 	mime.AddExtensionType(".h", "text/plain")
+	mime.AddExtensionType(".go", "text/plain")
+	mime.AddExtensionType(".cs", "text/plain")
+	mime.AddExtensionType(".mod", "text/plain")
+	mime.AddExtensionType(".sum", "text/plain")
 
 	extensions_Icon_Init()
 	file_icon_update := map[string][]string{

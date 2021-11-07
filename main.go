@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path"
 	"runtime"
@@ -81,6 +82,7 @@ func main() {
 			}
 		}
 	}
+	log.Println(fmt.Sprintf("Serving from http://%v", addr))
 	fasthttp.ListenAndServe(addr, m)
 }
 
