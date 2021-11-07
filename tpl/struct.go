@@ -76,7 +76,6 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 		}
 		if !fi.IsDir() {
 			item.FileExtension = path.Ext(fi.Name())
-			item.Icon = "default_file"
 			if pathnameIsDir {
 				for _, index := range index_array {
 					if index == fi.Name() {
@@ -87,7 +86,11 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 			}
 		} else {
 			item.Href = item.Href + "/"
-			item.Icon = "default_folder"
+		}
+		if item.FileExtension == "" {
+			item.Icon = GetExtensionsIcon(item.Name, fi.IsDir())
+		} else {
+			item.Icon = GetExtensionsIcon(item.FileExtension, fi.IsDir())
 		}
 		data.CurrentDirs = append(data.CurrentDirs, item)
 	}

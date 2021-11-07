@@ -1,6 +1,7 @@
 package tpl
 
 import (
+	"fmt"
 	"log"
 	"mime"
 	"strings"
@@ -20,60 +21,35 @@ func init() {
 	mime.AddExtensionType(".c", "text/plain")
 	mime.AddExtensionType(".h", "text/plain")
 
-	Extensions_Icon_Init()
-	for _, k := range []string{".md"} {
-		extensions_file_icon.Store(k, "file_type_markdown.svg")
+	extensions_Icon_Init()
+	file_icon_update := map[string][]string{
+		"file_type_markdown.svg":   {".md"},
+		"file_type_bundler.svg":    {"gemfile"},
+		"file_type_zip.svg":        {".gz", ".7z", ".tar", ".tgz", ".bz"},
+		"file_type_go_package.svg": {".mod", ".sum"},
+		"file_type_docker2.svg":    {"dockerfile"},
+		"file_type_image.svg":      {".jpeg", ".jpg", ".gif", ".png", ".bmp", ".tiff", ".ico"},
 	}
-	for _, k := range []string{"gemfile"} {
-		extensions_file_icon.Store(k, "file_type_bundler.svg")
+	folder_icon_update := map[string][]string{
+		"folder_type_windows.svg": {"win"},
+		"folder_type_tests.svg":   {"test", "integration", "specs", "spec"},
+		"folder_type_images.svg":  {"img", "image", "imgs"},
+		"folder_type_src.svg":     {"source", "sources"},
+		"folder_type_log.svg":     {"logs"},
+		"folder_type_locale.svg":  {"lang", "language", "languages", "locales", "internationalization", "i18n", "globalization", "g11n", "localization", "l10n"},
 	}
-	for _, k := range []string{".gz", ".7z", ".tar", ".tgz", ".bz"} {
-		extensions_file_icon.Store(k, "file_type_zip.svg")
+	for icon, v := range file_icon_update {
+		for _, key := range v {
+			extensions_file_icon.Store(key, icon)
+		}
 	}
-	for _, k := range []string{".mod", ".sum", ".tar", ".tgz", ".bz"} {
-		extensions_file_icon.Store(k, "file_type_go_package.svg")
+	for icon, v := range folder_icon_update {
+		for _, key := range v {
+			extensions_folder_icon.Store(key, icon)
+		}
 	}
-	for _, k := range []string{"dockerfile"} {
-		extensions_file_icon.Store(k, "file_type_docker2.svg")
-	}
+
 }
-
-/*
-extensions_icon_map.update({
-
-
-        'file_type_jpeg': 'file_type_image.svg',
-        'file_type_jpg': 'file_type_image.svg',
-        'file_type_gif': 'file_type_image.svg',
-        'file_type_png': 'file_type_image.svg',
-        'file_type_bmp': 'file_type_image.svg',
-        'file_type_tiff': 'file_type_image.svg',
-        'file_type_ico': 'file_type_image.svg',
-
-        'folder_type_lang': 'folder_type_locale.svg',
-        'folder_type_language': 'folder_type_locale.svg',
-        'folder_type_languages': 'folder_type_locale.svg',
-        'folder_type_locales': 'folder_type_locale.svg',
-        'folder_type_internationalization': 'folder_type_locale.svg',
-        'folder_type_i18n': 'folder_type_locale.svg',
-        'folder_type_globalization': 'folder_type_locale.svg',
-        'folder_type_g11n': 'folder_type_locale.svg',
-        'folder_type_localization': 'folder_type_locale.svg',
-        'folder_type_l10n': 'folder_type_locale.svg',
-        'folder_type_logs': 'folder_type_log.svg',
-        'folder_type_img': 'folder_type_images.svg',
-        'folder_type_image': 'folder_type_images.svg',
-        'folder_type_imgs': 'folder_type_images.svg',
-        'folder_type_source': 'folder_type_src.svg',
-        'folder_type_sources': 'folder_type_src.svg',
-
-        'folder_type_tests': 'folder_type_test.svg',
-        'folder_type_integration': 'folder_type_test.svg',
-        'folder_type_specs': 'folder_type_test.svg',
-        'folder_type_spec': 'folder_type_test.svg',
-        'folder_type_win': 'folder_type_windows.svg',
-    })
-*/
 
 func GetMime(ext string) string {
 	mineType := mime.TypeByExtension(ext)
@@ -83,7 +59,21 @@ func GetMime(ext string) string {
 	return mineType
 }
 
-func Extensions_Icon_Init() {
+func GetExtensionsIcon(ext string, isdir bool) string {
+	ext = strings.ToLower(ext)
+	if isdir {
+		if v, ok := extensions_folder_icon.Load(ext); ok {
+			return fmt.Sprint(v)
+		}
+		return "default_folder.svg"
+	}
+	if v, ok := extensions_file_icon.Load(ext); ok {
+		return fmt.Sprint(v)
+	}
+	return "default_file.svg"
+}
+
+func extensions_Icon_Init() {
 	dirs, err := static.Files.ReadDir("icons")
 	if err != nil {
 		log.Println(err)
