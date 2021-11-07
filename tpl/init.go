@@ -9,7 +9,11 @@ import (
 	"github.com/kingreatwill/README/static"
 )
 
-var extensions_icon sync.Map // map[string][]string; slice values are append-only.
+var (
+	extensions_file_icon   sync.Map // map[string][]string; slice values are append-only.
+	extensions_folder_icon sync.Map
+)
+
 func init() {
 	mime.AddExtensionType("", "application/octet-stream")
 	mime.AddExtensionType(".py", "text/plain")
@@ -17,7 +21,59 @@ func init() {
 	mime.AddExtensionType(".h", "text/plain")
 
 	Extensions_Icon_Init()
+	for _, k := range []string{".md"} {
+		extensions_file_icon.Store(k, "file_type_markdown.svg")
+	}
+	for _, k := range []string{"gemfile"} {
+		extensions_file_icon.Store(k, "file_type_bundler.svg")
+	}
+	for _, k := range []string{".gz", ".7z", ".tar", ".tgz", ".bz"} {
+		extensions_file_icon.Store(k, "file_type_zip.svg")
+	}
+	for _, k := range []string{".mod", ".sum", ".tar", ".tgz", ".bz"} {
+		extensions_file_icon.Store(k, "file_type_go_package.svg")
+	}
+	for _, k := range []string{"dockerfile"} {
+		extensions_file_icon.Store(k, "file_type_docker2.svg")
+	}
 }
+
+/*
+extensions_icon_map.update({
+
+
+        'file_type_jpeg': 'file_type_image.svg',
+        'file_type_jpg': 'file_type_image.svg',
+        'file_type_gif': 'file_type_image.svg',
+        'file_type_png': 'file_type_image.svg',
+        'file_type_bmp': 'file_type_image.svg',
+        'file_type_tiff': 'file_type_image.svg',
+        'file_type_ico': 'file_type_image.svg',
+
+        'folder_type_lang': 'folder_type_locale.svg',
+        'folder_type_language': 'folder_type_locale.svg',
+        'folder_type_languages': 'folder_type_locale.svg',
+        'folder_type_locales': 'folder_type_locale.svg',
+        'folder_type_internationalization': 'folder_type_locale.svg',
+        'folder_type_i18n': 'folder_type_locale.svg',
+        'folder_type_globalization': 'folder_type_locale.svg',
+        'folder_type_g11n': 'folder_type_locale.svg',
+        'folder_type_localization': 'folder_type_locale.svg',
+        'folder_type_l10n': 'folder_type_locale.svg',
+        'folder_type_logs': 'folder_type_log.svg',
+        'folder_type_img': 'folder_type_images.svg',
+        'folder_type_image': 'folder_type_images.svg',
+        'folder_type_imgs': 'folder_type_images.svg',
+        'folder_type_source': 'folder_type_src.svg',
+        'folder_type_sources': 'folder_type_src.svg',
+
+        'folder_type_tests': 'folder_type_test.svg',
+        'folder_type_integration': 'folder_type_test.svg',
+        'folder_type_specs': 'folder_type_test.svg',
+        'folder_type_spec': 'folder_type_test.svg',
+        'folder_type_win': 'folder_type_windows.svg',
+    })
+*/
 
 func GetMime(ext string) string {
 	mineType := mime.TypeByExtension(ext)
@@ -27,17 +83,6 @@ func GetMime(ext string) string {
 	return mineType
 }
 
-/*
-def extensions_icon_map_init():
-    icon_map = {}
-    rel_path = os.path.join(os.path.dirname(__file__), 'icons')
-    for entry in os.listdir(rel_path):
-        if entry.startswith('file_type_') or entry.startswith('folder_type_'):
-            ext = '{}'.format(entry.replace('.svg', ''))
-            icon_map[ext] = entry
-    return icon_map
-
-*/
 func Extensions_Icon_Init() {
 	dirs, err := static.Files.ReadDir("icons")
 	if err != nil {
@@ -50,10 +95,12 @@ func Extensions_Icon_Init() {
 		}
 		key := strings.Replace(v.Name(), ".svg", "", 1)
 		if strings.HasPrefix(v.Name(), "file_type_") {
-			key = strings.Replace(v.Name(), "file_type_", "", 1)
+			key = strings.Replace(key, "file_type_", "", 1)
+			extensions_file_icon.Store("."+key, v.Name())
+			extensions_file_icon.Store(key, v.Name())
 		} else if strings.HasPrefix(v.Name(), "folder_type_") {
-			key = strings.Replace(v.Name(), "folder_type_", "", 1)
+			key = strings.Replace(key, "folder_type_", "", 1)
+			extensions_folder_icon.Store(key, v.Name())
 		}
-		extensions_icon.Store("", "")
 	}
 }
