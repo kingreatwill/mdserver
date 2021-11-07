@@ -89,7 +89,7 @@ func send_file(ctx *fasthttp.RequestCtx, filename string, embed bool) {
 	var buf []byte
 	var err error
 	if embed {
-		buf, err = static.IconsCssFiles.ReadFile(filename)
+		buf, err = static.Files.ReadFile(filename)
 	} else {
 		buf, err = ioutil.ReadFile(filename)
 	}

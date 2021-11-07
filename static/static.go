@@ -19,11 +19,11 @@ import (
 // //go:embed *
 // var StaticFiles embed.FS
 
-//go:embed templates
-var TemplatesFiles embed.FS
+// //go:embed templates
+// var TemplatesFiles embed.FS
 
 // //go:embed css
 // var CssFiles embed.FS
 
-//go:embed icons css
-var IconsCssFiles embed.FS
+//go:embed templates icons css
+var Files embed.FS

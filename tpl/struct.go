@@ -31,6 +31,7 @@ type TemplateFileItemData struct {
 	IsFile        bool   `remark:"是否文件"`
 	Name          string `remark:"文件或目录名"`
 	Href          string `remark:"连接，不带SiteUrl"`
+	Icon          string `remark:"Icon"`
 }
 
 func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, indexs string) (data *TemplateData) {
@@ -75,6 +76,7 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 		}
 		if !fi.IsDir() {
 			item.FileExtension = path.Ext(fi.Name())
+			item.Icon = "default_file"
 			if pathnameIsDir {
 				for _, index := range index_array {
 					if index == fi.Name() {
@@ -85,6 +87,7 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 			}
 		} else {
 			item.Href = item.Href + "/"
+			item.Icon = "default_folder"
 		}
 		data.CurrentDirs = append(data.CurrentDirs, item)
 	}

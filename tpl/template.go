@@ -18,7 +18,7 @@ fmt.Println(buf.String())
 */
 func Execute(wr io.Writer, data *TemplateData) {
 	// 首先查找static目录；存在就读取对应的模板文件；
-	t, err := template.ParseFS(static.TemplatesFiles, "templates/index.html", "templates/header.html", "templates/footer.html")
+	t, err := template.ParseFS(static.Files, "templates/index.html", "templates/header.html", "templates/footer.html")
 	if err != nil {
 		log.Println(err)
 		return
