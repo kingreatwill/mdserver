@@ -63,8 +63,6 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 	if !pathnameIsDir {
 		listDir = filepath.Dir(fileFullName)
 	}
-	currentDirs := []TemplateFileItemData{}
-	currentFiles := []TemplateFileItemData{}
 	for _, fi := range Listdir(listDir) {
 		if strings.HasPrefix(fi.Name(), ".") || strings.HasPrefix(fi.Name(), "_") {
 			continue
@@ -88,22 +86,16 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 		} else {
 			item.Href = item.Href + "/"
 		}
-		if fi.IsDir() {
-			currentDirs = append(currentDirs, item)
-		} else {
-			currentFiles = append(currentFiles, item)
-		}
+		data.CurrentDirs = append(data.CurrentDirs, item)
 	}
-	sort.Slice(currentDirs, func(i, j int) bool {
-		// 1. Name:升序排序
-		return strings.ToLower(currentDirs[i].Name) < strings.ToLower(currentDirs[j].Name)
+	sort.Slice(data.CurrentDirs, func(i, j int) bool {
+		// 1. IsFile:升序排序
+		if data.CurrentDirs[i].IsFile != data.CurrentDirs[j].IsFile {
+			return data.CurrentDirs[j].IsFile
+		}
+		// 2. Name:升序排序
+		return strings.ToLower(data.CurrentDirs[i].Name) < strings.ToLower(data.CurrentDirs[j].Name)
 	})
-	sort.Slice(currentFiles, func(i, j int) bool {
-		// 1. Name:升序排序
-		return strings.ToLower(currentFiles[i].Name) < strings.ToLower(currentFiles[j].Name)
-	})
-	data.CurrentDirs = append(data.CurrentDirs, currentDirs...)
-	data.CurrentDirs = append(data.CurrentDirs, currentFiles...)
 	if data.CurrentIsFile {
 		c, err := ioutil.ReadFile(path.Join(mdfolder, data.CurrentFile))
 		if err != nil {
