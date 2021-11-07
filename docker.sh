@@ -1,3 +1,4 @@
+git pull
 docker build -t mdserve:golang .
 docker stop mdserve_golang
 docker rm mdserve_golang
