@@ -69,8 +69,7 @@ func main() {
 					return
 				}
 				if len(data.Content) > 0 {
-					data.MdHtml = string(md.New().Convert(data.Content))
-					//data.MdHtml = template.HTML(data.MdHtml)
+					md.New().Convert(data)
 				}
 				body := new(bytes.Buffer)
 				tpl.Execute(body, data)
