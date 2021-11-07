@@ -24,21 +24,12 @@ var (
 	index     string
 )
 
-/*
-
-parser.add_argument('-d', '--directory', default=r'', type=str, help='directory[default:current directory].')
-parser.add_argument('--host', type=str, default='0.0.0.0', help='host.')
-parser.add_argument('-p', '--port', type=int, default=8080, help='port.')
-parser.add_argument('--level', action='store_true', help='log level.')
-parser.add_argument('-c', '--crontab', type=str, default='0 *1 * * *', help='默认整点执行一次.')
-parser.add_argument('-i', '--index', type=str, default='', help='指定默认.')
-*/
 func init() {
-	flag.StringVar(&directory, "directory", "", "default:current directory.")
+	flag.StringVar(&directory, "d", "", "default:current directory.") // -d
 	flag.StringVar(&host, "host", "", "host.")
-	flag.StringVar(&crontab, "crontab", "", "default:0 *1 * * *")
-	flag.StringVar(&index, "index", "index.html,index.md,README.md", "指定默认主页.")
-	flag.IntVar(&port, "port", 8080, "端口")
+	flag.StringVar(&crontab, "c", "0 *1 * * *", "默认整点执行一次.")
+	flag.StringVar(&index, "i", "index.html,index.md,README.md", "指定默认主页.")
+	flag.IntVar(&port, "p", 8080, "端口")
 }
 
 // 获取当前执行文件绝对路径（go run）
