@@ -6,7 +6,7 @@ RUN go env -w GOPROXY=https://goproxy.cn,direct
 #RUN set GOSUMDB=off
 ENV CGO_ENABLED=0
 RUN go get -d -v ./...
-RUN go build -o app .
+RUN go build -o mdserve .
 
 # 两步可以用以下方式代替
 # RUN export CGO_ENABLED=0 && go build -o app .
@@ -24,10 +24,12 @@ RUN go build -o app .
 # FROM scratch AS production
 FROM alpine:latest AS production
 WORKDIR /root
-COPY --from=development /go/src/app/app .
-RUN chmod +x /root/app
+COPY --from=development /go/src/app/mdserve .
+RUN mkdir -p /root/mdfolder
+RUN mkdir -p /root/static
+RUN chmod +x /root/mdserve
 EXPOSE 8080
-CMD ["/root/app"]
+CMD ["/root/mdserve","-d","/root/mdfolder"]
 #ENTRYPOINT ["./app"]
 
 # docker build -t readme .
