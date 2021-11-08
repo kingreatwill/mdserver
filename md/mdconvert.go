@@ -8,6 +8,7 @@ import (
 	mermaid "github.com/abhinav/goldmark-mermaid"
 	toc "github.com/abhinav/goldmark-toc"
 	"github.com/kingreatwill/README/tpl"
+	katex "github.com/kingreatwill/goldmark-katex"
 
 	//mathjax "github.com/litao91/goldmark-mathjax"
 	"github.com/yuin/goldmark"
@@ -27,6 +28,7 @@ func New() *mdConvert {
 	md := goldmark.New(
 		goldmark.WithExtensions(
 			extension.GFM,
+			katex.KaTeX,
 			emoji.Emoji,
 			//mathjax.MathJax,
 			highlighting.Highlighting,
@@ -54,6 +56,9 @@ func (c *mdConvert) Convert(data *tpl.TemplateData) {
 		log.Println(err)
 		return
 	}
+
+	data.MdHtml = buf.String()
+
 	metaData := meta.Get(context)
 	if value, ok := metaData["Title"]; ok {
 		data.Title = fmt.Sprintf("%v", value)
@@ -80,5 +85,4 @@ func (c *mdConvert) Convert(data *tpl.TemplateData) {
 		data.Description = fmt.Sprintf("%v", value)
 	}
 
-	data.MdHtml = buf.String()
 }
