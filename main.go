@@ -50,8 +50,9 @@ func main() {
 		directory = getPwd()
 	}
 	addr := fmt.Sprintf("%v:%v", host, port)
+
 	// 路径处理;
-	m := func(ctx *fasthttp.RequestCtx) {
+	handler := func(ctx *fasthttp.RequestCtx) {
 		_path := string(ctx.Path())
 		if strings.HasPrefix(_path, "/static/") {
 			send_file(ctx, strings.Replace(_path, "/static/", "", 1), true)
@@ -59,7 +60,7 @@ func main() {
 			fileFullName := path.Join(directory, _path)
 			c_fi, _ := os.Stat(fileFullName)
 			if c_fi == nil {
-				ctx.Error("file not found.", fasthttp.StatusNotFound)
+				ctx.Error("file or directory not found.", fasthttp.StatusNotFound)
 				return
 			}
 			if c_fi.IsDir() || strings.HasSuffix(_path, ".md") {
@@ -82,7 +83,14 @@ func main() {
 		}
 	}
 	log.Println(fmt.Sprintf("Serving from http://%v", addr))
-	fasthttp.ListenAndServe(addr, m)
+	s := &fasthttp.Server{
+		Handler:        handler,
+		ReadBufferSize: 1024 * 1024, // 本地开发，有时会出现BIG cookies；
+	}
+	if err := s.ListenAndServe(addr); err != nil {
+		log.Println(err)
+	}
+	//fasthttp.ListenAndServe(addr, handler)
 }
 
 func send_file(ctx *fasthttp.RequestCtx, filename string, embed bool) {
