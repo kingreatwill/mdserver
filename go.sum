@@ -25,6 +25,8 @@ github.com/dlclark/regexp2 v1.2.0/go.mod h1:2pZnwuY/m+8K6iRw6wQdMtk+rH5tNGR1i55k
 github.com/golang/snappy v0.0.3/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
 github.com/kingreatwill/goldmark-katex v0.0.0-20211108073902-0471e1f0c9eb h1:322cqIfGYGAJ+pQjwux6vesQJdTGTA1HikOZ7LYeGe4=
 github.com/kingreatwill/goldmark-katex v0.0.0-20211108073902-0471e1f0c9eb/go.mod h1:Me418cSfdkq38Ayqy6JJzTbrwZaFVWjmDCpfbFHVR0I=
+github.com/kingreatwill/goldmark-katex v0.0.0-20211109031218-f6cb88b9ccfd h1:E6XbX5ho5ODwaLkOhFExlNCwV6mKK4hPhtyC3TUN/Qk=
+github.com/kingreatwill/goldmark-katex v0.0.0-20211109031218-f6cb88b9ccfd/go.mod h1:Me418cSfdkq38Ayqy6JJzTbrwZaFVWjmDCpfbFHVR0I=
 github.com/klauspost/compress v1.13.4/go.mod h1:8dP1Hq4DHOhN9w426knH3Rhby4rFm6D8eO+e+Dq5Gzg=
 github.com/klauspost/compress v1.13.6 h1:P76CopJELS0TiO2mebmnzgWaajssP/EszplttgQxcgc=
 github.com/klauspost/compress v1.13.6/go.mod h1:/3/Vjq9QcHkK5uEr5lBEmyoZ1iFhe47etQ6QUkpK6sk=
@@ -58,6 +60,8 @@ github.com/yuin/goldmark v1.3.4/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1
 github.com/yuin/goldmark v1.3.6/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
 github.com/yuin/goldmark v1.4.2 h1:5qVKCqCRBaGz8EepBTi7pbIw8gGCFnB1Mi6kXU4dYv8=
 github.com/yuin/goldmark v1.4.2/go.mod h1:rmuwmfZ0+bvzB24eSC//bk1R1Zp3hM0OXYv/G2LIilg=
+github.com/yuin/goldmark v1.4.3 h1:eTEYYWtQLjK7+WK45Tk81OTkp/0UvAyqUj8flU0nTO4=
+github.com/yuin/goldmark v1.4.3/go.mod h1:rmuwmfZ0+bvzB24eSC//bk1R1Zp3hM0OXYv/G2LIilg=
 github.com/yuin/goldmark-emoji v1.0.1 h1:ctuWEyzGBwiucEqxzwe0SOYDXPAucOrE9NQC18Wa1os=
 github.com/yuin/goldmark-emoji v1.0.1/go.mod h1:2w1E6FEWLcDQkoTE+7HU6QF1F6SLlNGjRIBbIZQFqkQ=
 github.com/yuin/goldmark-highlighting v0.0.0-20210516132338-9216f9c5aa01 h1:0SJnXjE4jDClMW6grE0xpNhwpqbPwkBTn8zpVw5C0SI=

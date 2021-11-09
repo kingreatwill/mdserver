@@ -6,7 +6,7 @@ require (
 	github.com/abhinav/goldmark-mermaid v0.1.1
 	github.com/abhinav/goldmark-toc v0.2.0
 	github.com/valyala/fasthttp v1.31.0
-	github.com/yuin/goldmark v1.4.2
+	github.com/yuin/goldmark v1.4.3
 	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20210516132338-9216f9c5aa01
 	github.com/yuin/goldmark-meta v1.0.0
@@ -17,7 +17,7 @@ require (
 	github.com/andybalholm/brotli v1.0.3 // indirect
 	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 // indirect
 	github.com/dlclark/regexp2 v1.2.0 // indirect
-	github.com/kingreatwill/goldmark-katex v0.0.0-20211108073902-0471e1f0c9eb // indirect
+	github.com/kingreatwill/goldmark-katex v0.0.0-20211109031218-f6cb88b9ccfd // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
