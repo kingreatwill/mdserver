@@ -8,6 +8,7 @@ import (
 	mermaid "github.com/abhinav/goldmark-mermaid"
 	toc "github.com/abhinav/goldmark-toc"
 	"github.com/kingreatwill/README/tpl"
+
 	katex "github.com/kingreatwill/goldmark-katex"
 
 	//mathjax "github.com/litao91/goldmark-mathjax"
