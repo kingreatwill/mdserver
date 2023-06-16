@@ -1,9 +1,9 @@
 package tpl
 
 import (
-	"io/ioutil"
 	"log"
 	"net/url"
+	"os"
 	"path"
 	"path/filepath"
 	"sort"
@@ -103,7 +103,7 @@ func GetTemplateData(pathname string, pathnameIsDir bool, mdfolder string, index
 		return strings.ToLower(data.CurrentDirs[i].Name) < strings.ToLower(data.CurrentDirs[j].Name)
 	})
 	if data.CurrentIsFile {
-		c, err := ioutil.ReadFile(path.Join(mdfolder, data.CurrentFile))
+		c, err := os.ReadFile(path.Join(mdfolder, data.CurrentFile))
 		if err != nil {
 			log.Println(err)
 			return nil

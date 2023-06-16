@@ -2,8 +2,8 @@ package tpl
 
 import (
 	"io/fs"
-	"io/ioutil"
 	"log"
+	"os"
 	"path"
 )
 
@@ -17,11 +17,16 @@ func Listfile(pathname string) (files []string) {
 	return
 }
 
-func Listdir(pathname string) []fs.FileInfo {
-	rd, err := ioutil.ReadDir(pathname)
+func Listdir(pathname string) (fileInfos []fs.FileInfo) {
+	dirEntries, err := os.ReadDir(pathname)
+	// rd, err := ioutil.ReadDir(pathname)
 	if err != nil {
 		log.Println(err)
 		return nil
 	}
-	return rd
+	for _, de := range dirEntries {
+		fi, _ := de.Info()
+		fileInfos = append(fileInfos, fi)
+	}
+	return
 }
