@@ -63,6 +63,10 @@ func main() {
 				ctx.Error("file or directory not found.", fasthttp.StatusNotFound)
 				return
 			}
+			if c_fi.Name()[0] == '.' {
+				ctx.Error("Warning, don't do anything illegal.", fasthttp.StatusInternalServerError)
+				return
+			}
 			if c_fi.IsDir() || strings.HasSuffix(_path, ".md") {
 				data := tpl.GetTemplateData(_path, c_fi.IsDir(), directory, "")
 				if data == nil {
