@@ -25,7 +25,7 @@ var (
 	index     string
 )
 
-// todo: 增加在线人数, 文件访问次数, 显示创建和修改时间, 显示git提交信息和diff, 排除文件夹, 隐藏文件等功能
+// todo: 增加在线人数, 文件访问次数, 显示创建和修改时间, 显示git提交信息和diff, 排除文件夹, 隐藏文件, SEO等功能
 // https://github.com/go-git/go-git
 func init() {
 	flag.StringVar(&directory, "d", "", "default:current directory.") // -d
